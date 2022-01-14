@@ -1,0 +1,4 @@
+__pycache__/
+key.json
+configure.py
+firebase_setting.py
