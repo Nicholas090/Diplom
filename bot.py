@@ -2,6 +2,8 @@ import telebot
 import configure
 from telebot import types 
 from firebase_setting import ref
+import sql.sqlConnect
+
 bot = telebot.TeleBot(configure.config['token'])
  
 @bot.message_handler(commands=['info'])
