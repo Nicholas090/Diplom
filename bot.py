@@ -32,40 +32,17 @@ def button(message):
     item2 = types.InlineKeyboardButton('Нет', callback_data = 'no_start')
     markup.add(item, item2)
  
-    bot.send_message(message.chat.id, 'Ты готов приступить к подбору ноутбука?', reply_markup=markup)
+    bot.send_message(message.chat.id, 'Ты готов приступить к подбору компьютера?', reply_markup=markup)
 
 
 
 @bot.callback_query_handler(func=lambda call:True)
 def callback(call):
     
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    small = types.InlineKeyboardButton('100$ - 500$', callback_data='small_price')
-    medium = types.InlineKeyboardButton('500$ - 1000$', callback_data='medium_price')
-    large = types.InlineKeyboardButton('1000$ - no limit$', callback_data='medium_price')
-        
-    markup.row(large)
-    markup.add(small, medium)
-    
-    msg = bot.send_message(call.message.chat.id, 'Какой у тебя бюджет ?', reply_markup=markup)
     
     
     
-
-    if call.data == 'yes_start':
-        bot.edit_message_reply_markup(call.message.chat.id, message_id = call.message.message_id, reply_markup = '')            
-        bot.send_message(call.message.chat.id, 'Хорошо, давай начнем')
-        bot.register_next_step_handler(msg, budget) 
-
-    elif call.data == 'no_start':
-        bot.send_message(call.message.chat.id, 'Ладно')
-        bot.edit_message_reply_markup(call.message.chat.id, message_id = call.message.message_id, reply_markup = '')
-
-    
-    
-
-def budget(message):
- 
+    insert_teleram_id(call.from_user.id)
     processor_img = Image.open(r'D:\projects\Diplom\images\intel-vs-amd_large.jpg')
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -74,17 +51,22 @@ def budget(message):
 
     markup.add(intel, amd)
     
-    msg = bot.send_photo(message.from_user.id, processor_img ,'Какой процессор предпочитаете ? ', reply_markup = markup)    
+    msg = bot.send_photo(call.from_user.id, processor_img ,'Какой процессор предпочитаете ? ', reply_markup = markup)     
+ 
+
+    if call.data == 'yes_start':
+        bot.edit_message_reply_markup(call.message.chat.id, message_id = call.message.message_id, reply_markup = '')  
+        bot.register_next_step_handler(msg, processor_brand) 
+          
+        # bot.send_message(call.chat.id, 'Хорошо, давай начнем')
+
+
+    elif call.data == 'no_start':
+        bot.send_message(call.message.chat.id, 'Ладно')
+        bot.edit_message_reply_markup(call.message.chat.id, message_id = call.message.message_id, reply_markup = '')
+
     
 
-    insert_teleram_id(message.from_user.id)
-    insert_data(message.from_user.id, message.text, 'budget')
-
-    bot.register_next_step_handler(msg, processor_brand) 
-
-    
-
-     
 
 def processor_brand(message):
 
@@ -93,7 +75,6 @@ def processor_brand(message):
      
     
     if message.text == "Intel":
-        # insert_processor_brand(message.from_user.id, 'Intel')
         intel_img = Image.open(r'D:\projects\Diplom\images\intel.jpg')
 
         markup_intel = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -107,7 +88,6 @@ def processor_brand(message):
 
         bot.register_next_step_handler(msg_intel, processor_model)  
     elif message.text == "Amd":
-        # insert_processor_brand(message.from_user.id, 'Amd')
 
         amd_img = Image.open(r'D:\projects\Diplom\images\amd.jpg')
 
@@ -123,6 +103,8 @@ def processor_brand(message):
         bot.register_next_step_handler(msg_amd, processor_model)  
     
 
+def processor_brand_model(message):
+    pass
     
 def processor_model(message):
 
@@ -195,22 +177,28 @@ def ram(message):
 def start_5(message):
     insert_data(message.from_user.id, message.text, 'memory_type')
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    bad = types.InlineKeyboardButton('216 гб')
-    medium = types.InlineKeyboardButton('512 гб')
-    good = types.InlineKeyboardButton('1 тб')
 
-    markup.row(good)
-    markup.add(bad, medium)
     
     
     
     if message.text == "HDD":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+        medium = types.InlineKeyboardButton('3 тб')
+        good = types.InlineKeyboardButton('1 тб')
+
+        markup.add(good, medium)
         hdd_img = Image.open(r'D:\projects\Diplom\images\hdd.jpg') 
         msg_hdd = bot.send_photo(message.from_user.id, hdd_img ,'Что насчет памяти ?', reply_markup = markup)
         bot.register_next_step_handler(msg_hdd, start_6_memory)
    
     elif message.text == "SSD":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+        bad = types.InlineKeyboardButton('216 гб')
+        medium = types.InlineKeyboardButton('512 гб')
+        good = types.InlineKeyboardButton('1 тб')
+
+        markup.row(good)
+        markup.add(bad, medium)
         ssd_img = Image.open(r'D:\projects\Diplom\images\ssd.jpg') 
         msg_ssd = bot.send_photo(message.from_user.id, ssd_img ,'Что насчет памяти ?', reply_markup = markup)
         bot.register_next_step_handler(msg_ssd, start_6_memory)
