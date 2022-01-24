@@ -97,3 +97,29 @@ def clean_data(id ,db_path = 'sql/database.db' ):
             sqlite_connection.close()
             print("Соединение с SQLite закрыто")
             # return cursor.lastrowid 
+            
+
+def processor_check(id ,db_path = 'sql/database.db' ):
+    try:
+        sqlite_connection = sqlite3.connect(db_path)
+        cursor = sqlite_connection.cursor()
+        print("Подключен к SQLite")
+
+        sqlite_insert = f"""SELECT processor_brand FROM users WHERE telegram_id = ?"""
+
+        data_tuple = [id]
+        cursor.execute(sqlite_insert, data_tuple)
+        sqlite_connection.commit()
+        print(f"Переменная получена {id}")
+
+        cursor.close()
+
+    except sqlite3.Error as error:
+        print("Ошибка при работе с SQLite", error)
+    finally:
+        if sqlite_connection:
+            sqlite_connection.close()
+            print("Соединение с SQLite закрыто")
+            # return cursor.la
+            
+            
