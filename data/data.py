@@ -1,0 +1,6 @@
+corei5 =['Core i5-12600', 'Core i5-11400', 'Core i5-10400']
+corei7 = ['Core i7-12700', 'Core i7-11700', 'Core i7-9700K']
+corei9 = ['Core i9-10920X', 'Core i9-10850K', 'Core i9-10900F']
+ryzen5 = ['Ryzen 5 5600X', 'Ryzen 5 5600G', 'Ryzen 5 3600']
+ryzen7 = ['Ryzen 7 5800X', 'Ryzen 7 5700G', 'Ryzen 7 3700X']
+ryzen9 = ['Ryzen 9 5950X', 'Ryzen 9 5900X', 'Ryzen 9 5900X']

@@ -3,3 +3,7 @@ key.json
 configure.py
 firebase_setting.py
 images/
+sql/__pycache__/
+.idea/
+console.bat
+database.db
