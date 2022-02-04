@@ -7,7 +7,6 @@ from PIL import Image
 from sql.sqlConnect import *
 from data.data import *
 
-
 bot = telebot.TeleBot(configure.config['token'])
  
 # @bot.message_handler(commands=['info'])
@@ -17,9 +16,6 @@ bot = telebot.TeleBot(configure.config['token'])
 #     data = { str(name_ ): str(id_)}
 #     ref.push(data)
     
-    
- 
- 
  
 @bot.message_handler(commands=['start'])
 def button(message):
@@ -40,10 +36,7 @@ def button(message):
 
 @bot.callback_query_handler(func=lambda call:True)
 def callback(call):
-    
-    
-    
-    
+
     insert_teleram_id(call.from_user.id)
     processor_img = Image.open(r'D:\projects\Diplom\images\intel-vs-amd_large.jpg')
 
@@ -82,7 +75,7 @@ def processor_brand(message):
         markup_intel = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
         bad_intel = types.InlineKeyboardButton('Core i5 (4 500 - 9 900)грн')
         medium_intel = types.InlineKeyboardButton('Core i7 (8 848 - 14 579)грн')
-        good_intel = types.InlineKeyboardButton('Core i9 (12 253 - 22 522)грн')
+        good_intel = types.InlineKeyboardButton('Core i9 (13 655 - 22 522)грн')
 
         markup_intel.row(good_intel)
         markup_intel.add(bad_intel, medium_intel)
@@ -96,7 +89,7 @@ def processor_brand(message):
         markup_amd = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
         bad_amd = types.InlineKeyboardButton('Ryzen 5 (6 200 - 9 400)')
         medium_amd = types.InlineKeyboardButton('Ryzen 7 (9 099 - 12 399)')
-        good_amd = types.InlineKeyboardButton('Ryzen 9 (14 939 - 22 899)')
+        good_amd = types.InlineKeyboardButton('Ryzen 9 (15 699 - 22 899)')
 
         markup_amd.row(good_amd)
         markup_amd.add(bad_amd, medium_amd)
@@ -122,7 +115,7 @@ def processor_model(message):
     elif  "Core i7" in message.text :
         msg = bot.send_message(message.chat.id, ' 1.[Core i7-12700K](https://telemart.ua/products/intel-core-i7-12700k-3650ghz-s1700-tray/)\n 2.[Core i7-11700F](https://telemart.ua/products/intel-core-i7-11700f-25ghz-16mb-s1200-box-bx8070811700f/)\n 3.[Core i7-9700K](https://telemart.ua/products/intel-core-i7-9700k-3649ghz-12mb-s1151-box-bx80684i79700k/) ', reply_markup=markup, parse_mode='Markdown')
     elif "Core i9" in message.text :
-        msg = bot.send_message(message.chat.id, ' 1.[Core i9-10920X](https://telemart.ua/products/intel-core-i9-10920x-3546ghz-1925mb-s2066-box-bx8069510920x/)\n 2.[Core i9-10850K](https://telemart.ua/products/intel-core-i9-10850k-3652ghz-20mb-s1200-box-bx8070110850k/)\n 3.[Core i9-10900F](https://telemart.ua/products/intel-core-i9-10900f-2851ghz-s1200-box/) ', reply_markup=markup, parse_mode='Markdown')
+        msg = bot.send_message(message.chat.id, ' 1.[Core i9-10920X](https://telemart.ua/products/intel-core-i9-10920x-3546ghz-1925mb-s2066-box-bx8069510920x/)\n 2.[Core i9-10850K](https://telemart.ua/products/intel-core-i9-10850k-3652ghz-20mb-s1200-box-bx8070110850k/)\n 3.[Core i9-10900F](https://telemart.ua/products/intel-core-i9-11900f-25ghz-16mb-s1200-box-bx8070811900f/) ', reply_markup=markup, parse_mode='Markdown')
     elif "Ryzen 5" in message.text:
         msg = bot.send_message(message.chat.id, ' 1.[Ryzen 5 5600X](https://telemart.ua/products/amd-ryzen-5-5600x-3746ghz-32mb-sam4-multipack-100-100000065mpk/)\n 2.[Ryzen 5 5600G](https://telemart.ua/products/amd-ryzen-5-5600g-3944ghz-16mb-sam4-box-100-100000252box/)\n 3.[Ryzen 5 3600](https://telemart.ua/products/amd-ryzen-5-3600-3642ghz-32mb-sam4-tray-100-000000031/) ', reply_markup=markup, parse_mode='Markdown')
     elif  "Ryzen 7" in message.text:
@@ -144,58 +137,30 @@ def processor_model_type(message):
     processor_chip = (state_check(message.from_user.id, 'processor_chip'))[0]
 
     if  'Core i9' in processor_chip:
-        if message.text == '1':
-            res = corei9[0]
-        elif message.text == '2':
-            res = corei9[1]
-        elif message.text == '3':
-            res = corei9[2]
+        res = corei9[(int(message.text) - 1)]
+        res_link = corei9_link[(int(message.text) - 1)]
     elif 'Core i7' in processor_chip:
-        if message.text == '1':
-            res = corei7[0]
-        elif message.text == '2':
-            res = corei7[1]
-        elif message.text == '3':
-            res = corei7[2]
+        res = corei7[(int(message.text) - 1)]
+        res_link = corei7_link[(int(message.text) - 1)]
     elif 'Core i5' in processor_chip:
-        if message.text == '1':
-            res = corei5[0]
-        elif message.text == '2':
-            res = corei5[1]
-        elif message.text == '3':
-            res = corei5[2]
-    elif  'Ryzen 5' in processor_chip:
-        if message.text == '1':
-            res = ryzen5[0]
-        elif message.text == '2':
-            res = ryzen5[1]
-        elif message.text == '3':
-            res = ryzen5[2]
+        res = corei5[(int(message.text) - 1)]
+        res_link = corei5_link[(int(message.text) - 1)]
+    elif  'Ryzen 9' in processor_chip:
+        res = ryzen9[(int(message.text) - 1)]
+        res_link = ryzen9_link[(int(message.text) - 1)]
     elif 'Ryzen 7' in processor_chip:
-        if message.text == '1':
-            res = ryzen7[0]
-        elif message.text == '2':
-            res = ryzen7[1]
-        elif message.text == '3':
-            res = ryzen7[2]
+        res = ryzen7[(int(message.text) - 1)]
+        res_link = ryzen7_link[(int(message.text) - 1)]
     elif 'Ryzen 5' in processor_chip:
-        if message.text == '1':
-            res = ryzen9[0]
-        elif message.text == '2':
-            res = ryzen9[1]
-        elif message.text == '3':
-            res = ryzen9[2]
-
-
-
+        res = ryzen5[(int(message.text) - 1)]
+        res_link = ryzen5_link[(int(message.text) - 1)]
 
     processor = state_check(message.from_user.id, 'processor_brand')
 
-
     insert_data(message.from_user.id, res , 'processor_model')
-    
-    
+    insert_data(message.from_user.id, res_link , 'processor_link')
 
+    
     card_img = Image.open(r'D:\projects\Diplom\images\motherboard.jpg') 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     
@@ -211,15 +176,9 @@ def processor_model_type(message):
         medium = types.InlineKeyboardButton('Что-то среднее (6 248 - 8 305)')
         good = types.InlineKeyboardButton('Дорогая (10 920 - 18 457)')
         markup.row(good)
-        markup.add(bad, medium)
-        
-        
-
+        markup.add(bad, medium)       
 
     msg = bot.send_photo(message.from_user.id, card_img ,'Что насчет материнской платы ?'  , reply_markup = markup)
-
-
-# тут
 
     bot.register_next_step_handler(msg, motherboard_model)
     
@@ -240,44 +199,58 @@ def motherboard_model(message):
     processor = (state_check(message.from_user.id, 'processor_brand'))[0]
 
     if  processor == 'Intel':
-        
         if 'Дорогая' in message.text:
-        
             msg = bot.send_message(message.chat.id, '1.[ASUS ROG MAXIMUS Z690](https://telemart.ua/products/asus-rog-maximus-z690-hero-s1700-intel-z690/)\n 2.[ASUS ROG STRIX Z690-F](https://telemart.ua/products/asus-rog-strix-z690-f-gaming-s1700-intel-z690/)\n 3.[ASUS ROG STRIX Z590-F](https://telemart.ua/products/asus-rog-strix-z590-f-gaming-wifi-s1200-intel-z590/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
-        
         elif  'Что-то среднее' in message.text:
-
-
             msg = bot.send_message(message.chat.id, '1.[ASUS PRIME Z690M-PLUS D4](https://telemart.ua/products/asus-prime-z690m-plus-d4-s1700-intel-z690/)\n 2.[MSI MPG Z490](https://telemart.ua/products/msi-mpg-z490-gaming-plus-s1200-intel-z490/)\n 3.[MSI MAG B560M](https://telemart.ua/products/msi-mag-b560m-mortar-wifi-s1200-intel-b560/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
         elif 'Бюджетная' in message.text:
-    
-
             msg = bot.send_message(message.chat.id, '1.[Asus PRIME B560-PLUS](https://telemart.ua/products/asus-prime-b560-plus-s1200-intel-b560/)\n 2.[Asus PRIME B460M-A](https://telemart.ua/products/asus-prime-b460m-a-r20-s1200-intel-h470/)\n 3.[MSI H510M PRO](https://telemart.ua/products/msi-h510m-pro-s1200-intel-h510/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
-            
-    elif 'Amd' in message.text:
-        
+    elif processor == 'Amd':
         if  'Дорогая' in message.text:
-        
             msg = bot.send_message(message.chat.id, '1.[Asus ROG CROSSHAIR VIII FORMULA](https://telemart.ua/products/asus-rog-crosshair-viii-formula-sam4-amd-x570/)\n 2.[Asus PRIME TRX40-Pro S](https://telemart.ua/products/asus-prime-trx40-pro-s-strx4-amd-trx40/)\n 3.[Asus Pro WS X570-ACE](https://telemart.ua/products/asus-pro-ws-x570-ace-sam4-amd-x570/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
-        
         elif 'Что-то среднее' in message.text:
-
-
             msg = bot.send_message(message.chat.id, '1.[Asus ProArt B550-CREATOR](https://telemart.ua/products/asus-proart-b550-creator-sam4-amd-b550/)\n 2.[Asus TUF GAMING X570-PLUS](https://telemart.ua/products/asus-tuf-gaming-x570-plus-wi-fi-sam4-amd-x570/)\n 3.[AsRock X570M](https://telemart.ua/products/asrock-x570m-pro4-sam4-amd-x570/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
         elif  'Бюджетная' in message.text:
-    
-
             msg = bot.send_message(message.chat.id, '1.[AsRock X570 Pro4](https://telemart.ua/products/asrock-x570-pro4-sam4-amd-x570/)\n 2.[Gigabyte B450 AORUS PRO](https://telemart.ua/products/gigabyte-b450-aorus-pro-sam4-amd-b450/)\n 3.[Asus PRIME A320M-E](https://telemart.ua/products/asus-prime-a320m-e-sam4-amd-a320/)', reply_markup=markup, parse_mode='Markdown')
             bot.register_next_step_handler(msg, motherboard)
 
 
 def motherboard(message):
-    insert_data(message.from_user.id, message.text, 'motherboard_model')
+
+    processor = (state_check(message.from_user.id, 'processor_brand'))[0]
+    motherboard_price = (state_check(message.from_user.id, 'motherboard_price'))[0]
+
+
+    if processor == 'Intel':
+        if 'Бюджетная' in motherboard_price:
+            res = motherboard_intel_b[(int(message.text) - 1)]
+            res_link = motherboard_intel_b_link[(int(message.text) - 1)]
+        elif 'Что-то среднее' in motherboard_price:
+            res = motherboard_intel_m[(int(message.text) - 1)]
+            res_link = motherboard_intel_m_link[(int(message.text) - 1)]
+        elif 'Дорогая' in motherboard_price:
+            res = motherboard_intel_g[(int(message.text) - 1)]
+            res_link = motherboard_intel_g_link[(int(message.text) - 1)]
+
+    elif processor == 'Amd':
+        if 'Бюджетная' in motherboard_price:
+            res = motherboard_amd_b[(int(message.text) - 1)]
+            res_link = motherboard_amd_b_link[(int(message.text) - 1)]
+        elif 'Что-то среднее' in motherboard_price:
+            res = motherboard_amd_m[(int(message.text) - 1)]
+            res_link = motherboard_amd_m_link[(int(message.text) - 1)]
+        elif 'Дорогая' in motherboard_price:
+            res = motherboard_amd_g[(int(message.text) - 1)]
+            res_link = motherboard_amd_g_link[(int(message.text) - 1)]
+
+
+    insert_data(message.from_user.id, res, 'motherboard_model')
+    insert_data(message.from_user.id, res_link, 'motherboard_link')
 
 
     card_img = Image.open(r'D:\projects\Diplom\images\RTX.jpg') 
@@ -291,8 +264,6 @@ def motherboard(message):
     
     msg = bot.send_photo(message.from_user.id, card_img ,'Что насчет видеокарты ?'  , reply_markup = markup)
      
-
-
     bot.register_next_step_handler(msg, graphic_card)
 
 def graphic_card(message):
@@ -305,25 +276,34 @@ def graphic_card(message):
     
 
     if  'Дорогая' in message.text:
-        
         msg = bot.send_message(message.chat.id, '1.[RTX 3070 Ti AORUS](https://telemart.ua/products/gigabyte-geforce-rtx-3070-ti-aorus-master-8192mb-gv-n307taorus-m-8gd/)\n 2.[RTX 3060 Ti](https://telemart.ua/products/gigabyte-geforce-rtx-3060-ti-gaming-oc-8192mb-gv-n306tgaming-oc-8gd-20/)\n 3.[RTX 2080](https://telemart.ua/products/asus-geforce-rtx-2080-super-dual-evo-8192mb-dual-rtx2080s-8g-evo-fr-factory-recertified/)', reply_markup=markup, parse_mode='Markdown')
-        bot.register_next_step_handler(msg, graphic_card_model)
-        
+        bot.register_next_step_handler(msg, graphic_card_model) 
     elif 'Что-то среднее' in message.text:
-
-
         msg = bot.send_message(message.chat.id, '1.[RTX 3060 StormX](https://telemart.ua/products/palit-geforce-rtx-3060-stormx-12288mb-ne63060019k9-190af/)\n 2.[RTX 2060 D6](https://telemart.ua/products/gigabyte-geforce-rtx-2060-d6-6144mb-gv-n2060d6-6gd/)\n 3.[GTX 1660 Ti](https://telemart.ua/products/gigabyte-gtx-1660-ti-oc-6144mb-gv-n166toc-6gd/)', reply_markup=markup, parse_mode='Markdown')
         bot.register_next_step_handler(msg, graphic_card_model)
     elif 'Бюджетная' in message.text:
-    
-
         msg = bot.send_message(message.chat.id, '1.[GTX 1660](https://telemart.ua/products/gigabyte-geforce-gtx-1660-oc-6144mb-gv-n1660oc-6gd/)\n 2.[GTX 1650 Phoenix](https://telemart.ua/products/asus-geforce-gtx-1650-phoenix-oc-4096mb-ph-gtx1650-o4g/)\n 3.[GTX 1650 VENTUS XS](https://telemart.ua/products/msi-geforce-gtx-1650-ventus-xs-oc-4096mb-gtx-1650-ventus-xs-4g-oc/)', reply_markup=markup, parse_mode='Markdown')
         bot.register_next_step_handler(msg, graphic_card_model)
 
     
 
 def graphic_card_model(message):
-    insert_data(message.from_user.id, message.text, 'graphic_card_model')
+    card = (state_check(message.from_user.id, 'graphic_card_price'))[0]
+    
+    if 'Бюджетная' in card:
+        res = graphic_card_b[(int(message.text) - 1)]
+        res_link = graphic_card_b_link[(int(message.text) - 1)]
+    elif 'Что-то среднее' in card:
+        res = graphic_card_m[(int(message.text) - 1)]
+        res_link = graphic_card_m_link[(int(message.text) - 1)]
+    elif 'Дорогая' in card:
+        res = graphic_card_g[(int(message.text) - 1)]
+        res_link = graphic_card_g_link[(int(message.text) - 1)]
+
+
+    insert_data(message.from_user.id, res , 'graphic_card_model')
+    insert_data(message.from_user.id, res_link , 'graphic_card_link')
+
     ddr_img = Image.open(r'D:\projects\Diplom\images\ddr.jpg') 
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -368,7 +348,22 @@ def ram_size(message):
 
 
 def ram_model(message):
-    insert_data(message.from_user.id, message.text, 'ram_model')
+    ram_size = (state_check(message.from_user.id, 'ram_size'))[0]
+    
+    if ram_size == '8':
+        res = ram8[(int(message.text) - 1)]
+        res_link = ram8_link[(int(message.text) - 1)]
+    elif ram_size == '16':
+        res = ram16[(int(message.text) - 1)]
+        res_link = ram16_link[(int(message.text) - 1)]
+    elif ram_size == '32':
+        res = ram32[(int(message.text) - 1)]
+        res_link = ram32_link[(int(message.text) - 1)]
+
+
+    insert_data(message.from_user.id, res, 'ram_model')
+    insert_data(message.from_user.id, res_link, 'ram_link')
+
     ssd_hdd_img = Image.open(r'D:\projects\Diplom\images\SSD-vs-HDD.jpg') 
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -425,7 +420,6 @@ def memory_size(message):
     item3 = types.InlineKeyboardButton('3')
     markup.add(item, item2, item3)
 
-    # msg = bot.send_message(message.from_user.id, 'Что насчет пропускной способности ?'  , reply_markup = markup)
      
     memory = (state_check(message.from_user.id, 'memory_type'))[0]
     
@@ -441,7 +435,7 @@ def memory_size(message):
             msg = bot.send_message(message.chat.id, '1.[Gigabyte 256GB 2.5](https://telemart.ua/products/gigabyte-256gb-25-gp-gstfs31256gtnd/)\n 2.[Patriot P210 256GB](https://telemart.ua/products/patriot-p210-256gb-25-p210s256g25/)\n 3.[Patriot Burst 240GB](https://telemart.ua/products/patriot-burst-tlc-120gb-25-pbu240gs25ssdr/)', reply_markup=markup, parse_mode='Markdown')
         elif "512 гб" in message.text:
             msg = bot.send_message(message.chat.id, '1.[Kingston FURY Renegade 3D](https://telemart.ua/products/kingston-fury-renegade-3d-nand-tlc-500gb-m2-2280-pci-e-nvme-x4-sfyrs500g/)\n 2.[Samsung 870 EVO V-NAND](https://telemart.ua/products/samsung-870-evo-v-nand-mlc-500gb-25-mz-77e500bw/)\n 3.[Patriot P300 512GB](https://telemart.ua/products/patriot-p300-512gb-m2-2280-pci-e-nvme-x4-p300p512gm28/)', reply_markup=markup, parse_mode='Markdown')
-        elif "1 ТБ" in message.text:
+        elif "1 тб" in message.text:
             msg = bot.send_message(message.chat.id, '1.[Samsung 970 PRO V-NAND](https://telemart.ua/products/samsung-970-pro-v-nand-mlc-1tb-m2-2280-pci-e-mz-v7p1t0bw/)\n 2.[Corsair Force Series MP600](https://telemart.ua/products/corsair-force-series-mp600-gen4-3d-nand-tlc-1gb-m2-2280-pci-e-nvme-x4-cssd-f1000gbmp600/)\n 3.[Intel 660p 3D QLC 1TB](https://telemart.ua/products/intel-660p-3d-qlc-1tb-m2-2280-pci-e-nvme-x4-ssdpeknw010t8x1/)', reply_markup=markup, parse_mode='Markdown')
     
     bot.register_next_step_handler(msg, memory_model)    
@@ -536,10 +530,16 @@ def pc_case_model(message):
     insert_data(message.from_user.id, message.text, 'pc_case_model')
     
     processor_model = (state_check(message.from_user.id, 'processor_model'))[0]
+    processor_link = (state_check(message.from_user.id, 'processor_link'))[0]
     motherboard_model = (state_check(message.from_user.id, 'motherboard_model'))[0]
+    motherboard_model_link = (state_check(message.from_user.id, 'motherboard_link'))[0]
     graphic_card_model = (state_check(message.from_user.id, 'graphic_card_model'))[0]
+    graphic_card_model_link = (state_check(message.from_user.id, 'graphic_card_link'))[0]
     ram_model = (state_check(message.from_user.id, 'ram_model'))[0]
+    ram_link = (state_check(message.from_user.id, 'ram_link'))[0]
     memory_model = (state_check(message.from_user.id, 'memory_model'))[0]
+    memory_link = (state_check(message.from_user.id, 'memory_link'))[0]
+
     pc_power_model = (state_check(message.from_user.id, 'pc_power_model'))[0]
     pc_case_model = (state_check(message.from_user.id, 'pc_case_model'))[0]
 
@@ -547,9 +547,17 @@ def pc_case_model(message):
 
     
     
-    results = f'Ваша сборка :\n Процессор: {processor_model}\n'
+    results = f'''Ваша сборка :
+Процессор: [{processor_model}]({processor_link})
+Материнская плата: [{motherboard_model}]({motherboard_model_link})
+Видеокарта: [{graphic_card_model}]({graphic_card_model_link})
+ОЗУ: [{ram_model}]({ram_link})
+
+
+
+    '''
     
-    bot.send_message(message.from_user.id, results)
+    bot.send_message(message.from_user.id, results, parse_mode='Markdown')
     
 
 

@@ -95,7 +95,7 @@ def state_check(id , data , db_path = 'sql/database.db' ):
         if sqlite_connection:
             sqlite_connection.close()
             print("Соединение с SQLite закрыто")
-            return records
+            return records[0]
             
 
 # def get_developer_info(id):
