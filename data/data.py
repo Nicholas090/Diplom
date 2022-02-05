@@ -34,21 +34,33 @@ graphic_card_g_link = ['https://telemart.ua/products/gigabyte-geforce-rtx-3070-t
 graphic_card_m_link = ['https://telemart.ua/products/palit-geforce-rtx-3060-stormx-12288mb-ne63060019k9-190af/', 'https://telemart.ua/products/gigabyte-geforce-rtx-2060-d6-6144mb-gv-n2060d6-6gd/', 'https://telemart.ua/products/gigabyte-gtx-1660-ti-oc-6144mb-gv-n166toc-6gd/']
 graphic_card_b_link = ['https://telemart.ua/products/gigabyte-geforce-gtx-1660-oc-6144mb-gv-n1660oc-6gd/', 'https://telemart.ua/products/asus-geforce-gtx-1650-phoenix-oc-4096mb-ph-gtx1650-o4g/', 'https://telemart.ua/products/msi-geforce-gtx-1650-ventus-xs-oc-4096mb-gtx-1650-ventus-xs-4g-oc/']
 
-ram8 = ['https://telemart.ua/products/kingston-ddr4-8gb-3200mhz-fury-beast-black-kf432c16bb8/', 'https://telemart.ua/products/goodram-ddr4-8gb-2400mhz-gr2400d464l17s8g/', 'https://telemart.ua/products/team-ddr4-8gb-2400mhz-elite-ted48g2400c1601/']
-ram16 = ['https://telemart.ua/products/patriot-ddr4-16gb-2x8gb-4400mhz-viper-4-blackout-pvb416g440c8k/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8-3200mhz-ripjaws-v-black-f4-3200c15d-16gvk/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8gb-3200mhz-aegis-f4-3200c16d-16gis/']
-ram32 = ['https://telemart.ua/products/kingston-ddr5-32gb-2x16gb-5200mhz-fury-beast-black-kf552c40bbk2-32/', 'https://telemart.ua/products/gskill-ddr4-32gb-3200mhz-trident-z-rgb-f4-3200c15d-32gtzr/', 'https://telemart.ua/products/patriot-ddr4-32gb-2x16gb-3000mhz-viper-4-blackout-pvb432g300c6k/']
-
+ram8 = ['Kingston DDR4 8G', 'GoodRAM DDR4 8GB', 'Team DDR4 8GB']
+ram16 = ['Patriot DDR4 16GB', 'G.Skill DDR4 16GB', 'G.Skill DDR4 16GB']
+ram32 = ['Kingston DDR5 32GB', 'G.Skill DDR4 32GB', '[Patriot DDR4 32GB']
 
 ram8_link = ['https://telemart.ua/products/kingston-ddr4-8gb-3200mhz-fury-beast-black-kf432c16bb8/', 'https://telemart.ua/products/goodram-ddr4-8gb-2400mhz-gr2400d464l17s8g/', 'https://telemart.ua/products/team-ddr4-8gb-2400mhz-elite-ted48g2400c1601/']
 ram16_link = ['https://telemart.ua/products/patriot-ddr4-16gb-2x8gb-4400mhz-viper-4-blackout-pvb416g440c8k/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8-3200mhz-ripjaws-v-black-f4-3200c15d-16gvk/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8gb-3200mhz-aegis-f4-3200c16d-16gis/']
 ram32_link = ['https://telemart.ua/products/kingston-ddr5-32gb-2x16gb-5200mhz-fury-beast-black-kf552c40bbk2-32/', 'https://telemart.ua/products/gskill-ddr4-32gb-3200mhz-trident-z-rgb-f4-3200c15d-32gtzr/', 'https://telemart.ua/products/patriot-ddr4-32gb-2x16gb-3000mhz-viper-4-blackout-pvb432g300c6k/']
+
+hdd_1tb = ['Western Digital Blue 1TB', 'Seagate BarraCuda 1TB']
+hdd_2tb = ['Toshiba P300 2TB', 'Seagate BarraCuda 2TB']
+
+ssd_216 = ['Gigabyte 256GB 2.5', 'Patriot P210 256GB', 'Patriot Burst 240GB']
+ssd_512 = ['Kingston FURY Renegade 3D', 'Samsung 870 EVO V-NAND', 'Patriot P300 512GB']
+ssd_1 = ['Samsung 970 PRO V-NAND', 'Corsair Force Series MP600', 'Intel 660p 3D QLC 1TB']
+
 
 hdd_1tb_link = ['https://telemart.ua/products/western-digital-caviar-blue-1tb-64mb-7200rpm-35-wd10ezex/', 'https://telemart.ua/products/seagate-barracuda-1tb-64mb-7200rpm-35-st1000dm010/']
 hdd_2tb_link = ['https://telemart.ua/products/toshiba-p300-2tb-64mb-7200rpm-35-hdwd120uzsva/', 'https://telemart.ua/products/seagate-barracuda-2tb-256mb-7200rpm-35-st2000dm008/']
 
 ssd_216_link = ['https://telemart.ua/products/gigabyte-256gb-25-gp-gstfs31256gtnd/', 'https://telemart.ua/products/patriot-p210-256gb-25-p210s256g25/', 'https://telemart.ua/products/patriot-burst-tlc-120gb-25-pbu240gs25ssdr/']
 ssd_512_link = ['https://telemart.ua/products/kingston-fury-renegade-3d-nand-tlc-500gb-m2-2280-pci-e-nvme-x4-sfyrs500g/', 'https://telemart.ua/products/samsung-870-evo-v-nand-mlc-500gb-25-mz-77e500bw/', 'https://telemart.ua/products/patriot-p300-512gb-m2-2280-pci-e-nvme-x4-p300p512gm28/']
-ssd_1 = ['https://telemart.ua/products/samsung-970-pro-v-nand-mlc-1tb-m2-2280-pci-e-mz-v7p1t0bw/', 'https://telemart.ua/products/corsair-force-series-mp600-gen4-3d-nand-tlc-1gb-m2-2280-pci-e-nvme-x4-cssd-f1000gbmp600/', 'https://telemart.ua/products/intel-660p-3d-qlc-1tb-m2-2280-pci-e-nvme-x4-ssdpeknw010t8x1/']
+ssd_1_link = ['https://telemart.ua/products/samsung-970-pro-v-nand-mlc-1tb-m2-2280-pci-e-mz-v7p1t0bw/', 'https://telemart.ua/products/corsair-force-series-mp600-gen4-3d-nand-tlc-1gb-m2-2280-pci-e-nvme-x4-cssd-f1000gbmp600/', 'https://telemart.ua/products/intel-660p-3d-qlc-1tb-m2-2280-pci-e-nvme-x4-ssdpeknw010t8x1/']
+
+pc_power_g = []
+pc_power_m = []
+pc_power_b = []
+
 
 pc_power_g_link = ['https://telemart.ua/products/chieftec-polaris-1050w-pps-1050fc/', 'https://telemart.ua/products/corsair-rm750x-750w-cp-9020179-eu/', 'https://telemart.ua/products/seasonic-core-gc-650w-gold-ssr-650lc/']
 pc_power_m_link = ['https://telemart.ua/products/be-quiet-system-power-9-700w-bn248/', 'https://telemart.ua/products/gigabyte-p750gm-750w-gp-p750gm/', 'https://telemart.ua/products/gamemax-rgb-550-550w-rgb-550/']
