@@ -6,16 +6,9 @@ from firebase_setting import ref
 from PIL import Image
 from sql.sqlConnect import *
 from data.data import *
+from data.parse import parse_price
 
 bot = telebot.TeleBot(configure.config['token'])
- 
-# @bot.message_handler(commands=['info'])
-# def get_info(message):
-#     name_= message.from_user.username
-#     id_ = message.from_user.id
-#     data = { str(name_ ): str(id_)}
-#     ref.push(data)
-    
  
 @bot.message_handler(commands=['start'])
 def button(message):
@@ -46,10 +39,11 @@ def callback(call):
 
     markup.add(intel, amd)
     
-    msg = bot.send_photo(call.from_user.id, processor_img ,'Какой процессор предпочитаете ? ', reply_markup = markup)     
- 
+
 
     if call.data == 'yes_start':
+        msg = bot.send_photo(call.from_user.id, processor_img, 'Какой процессор предпочитаете ? ', reply_markup=markup)
+
         bot.edit_message_reply_markup(call.message.chat.id, message_id = call.message.message_id, reply_markup = '')  
         bot.register_next_step_handler(msg, processor_brand)   
     elif call.data == 'no_start':
@@ -69,9 +63,9 @@ def processor_brand(message):
         intel_img = Image.open(r'D:\projects\Diplom\images\intel.jpg')
 
         markup_intel = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        bad_intel = types.InlineKeyboardButton('Core i5 (4 500 - 9 900)грн')
-        medium_intel = types.InlineKeyboardButton('Core i7 (8 848 - 14 579)грн')
-        good_intel = types.InlineKeyboardButton('Core i9 (13 655 - 22 522)грн')
+        bad_intel = types.InlineKeyboardButton(f'Core i5 ({parse_price(corei5_link[2],"4 000")} - {parse_price(corei5_link[0], "8 000")})грн')
+        medium_intel = types.InlineKeyboardButton(f'Core i7 ({parse_price(corei7_link[2],"6 000")} - {parse_price(corei7_link[0], "12 000")})грн')
+        good_intel = types.InlineKeyboardButton(f'Core i9 ({parse_price(corei9_link[2],"12 000")} - {parse_price(corei9_link[0], "22 000")})грн')
 
         markup_intel.row(good_intel)
         markup_intel.add(bad_intel, medium_intel)
@@ -83,9 +77,9 @@ def processor_brand(message):
         amd_img = Image.open(r'D:\projects\Diplom\images\amd.jpg')
 
         markup_amd = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        bad_amd = types.InlineKeyboardButton('Ryzen 5 (6 200 - 9 400)')
-        medium_amd = types.InlineKeyboardButton('Ryzen 7 (9 099 - 12 399)')
-        good_amd = types.InlineKeyboardButton('Ryzen 9 (15 699 - 22 899)')
+        bad_amd = types.InlineKeyboardButton(f'Ryzen 5 ({parse_price(ryzen5_link[2],"4 000")} - {parse_price(ryzen5_link[0], "8 000")})грн')
+        medium_amd = types.InlineKeyboardButton(f'Ryzen 7 ({parse_price(ryzen7_link[2],"6 000")} - {parse_price(ryzen7_link[0], "11 000")})грн')
+        good_amd = types.InlineKeyboardButton(f'Ryzen 9 ({parse_price(ryzen9_link[2],"12 000")} - {parse_price(ryzen9_link[0], "22 000")})грн')
 
         markup_amd.row(good_amd)
         markup_amd.add(bad_amd, medium_amd)
@@ -161,20 +155,20 @@ def processor_model_type(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     
     if processor == 'Intel':
-        bad = types.InlineKeyboardButton('Бюджетная (1 999 - 3 849)')
-        medium = types.InlineKeyboardButton('Что-то среднее (4 723 - 6 516)')
-        good = types.InlineKeyboardButton('Дорогая (9 666 - 18 609)')
+        bad = types.InlineKeyboardButton(f'Бюджетная ({parse_price(motherboard_intel_b_link[2],"1 500")} - {parse_price(motherboard_intel_b_link[0],"4 000")})')
+        medium = types.InlineKeyboardButton(f'Что-то среднее ({parse_price(motherboard_intel_m_link[2],"4 500")} - {parse_price(motherboard_intel_m_link[0],"8 000")})')
+        good = types.InlineKeyboardButton(f'Дорогая ({parse_price(motherboard_intel_g_link[2],"8 000")} - {parse_price(motherboard_intel_g_link[0],"14 000")})')
         markup.row(good)
         markup.add(bad, medium)
-        
+
     elif processor == 'Amd':
-        bad = types.InlineKeyboardButton('Бюджетная (2 302 - 3 999)')
-        medium = types.InlineKeyboardButton('Что-то среднее (6 248 - 8 305)')
-        good = types.InlineKeyboardButton('Дорогая (10 920 - 18 457)')
+        bad = types.InlineKeyboardButton(f'Бюджетная ({parse_price(motherboard_amd_b_link[2],"1 500")} - {parse_price(motherboard_amd_b_link[0],"4 000")})')
+        medium = types.InlineKeyboardButton(f'Что-то среднее ({parse_price(motherboard_amd_m_link[2],"4 000")} - {parse_price(motherboard_amd_m_link[0],"8 000")})')
+        good = types.InlineKeyboardButton(f'Дорогая ({parse_price(motherboard_amd_g_link[2],"8 000")} - {parse_price(motherboard_amd_g_link[0],"14 000")})')
         markup.row(good)
         markup.add(bad, medium)       
 
-    msg = bot.send_photo(message.from_user.id, card_img ,'Что насчет материнской платы ?'  , reply_markup = markup)
+    msg = bot.send_photo(message.from_user.id, card_img,'Что насчет материнской платы ?', reply_markup = markup)
 
     bot.register_next_step_handler(msg, motherboard_model)
     
@@ -247,9 +241,9 @@ def motherboard(message):
 
     card_img = Image.open(r'D:\projects\Diplom\images\RTX.jpg') 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    bad = types.InlineKeyboardButton('Бюджетная (10 899 - 15 999)')
-    medium = types.InlineKeyboardButton('Что-то среднее (17 299 - 24 999)')
-    good = types.InlineKeyboardButton('Дорогая (30 999 - 46 999)')
+    bad = types.InlineKeyboardButton(f'Бюджетная  ({parse_price(graphic_card_b_link[2],"8 000")} - {parse_price(graphic_card_b_link[0],"14 000")})')
+    medium = types.InlineKeyboardButton(f'Что-то среднее ({parse_price(graphic_card_m_link[2],"18 000")} - {parse_price(graphic_card_m_link[0],"25 000")})')
+    good = types.InlineKeyboardButton(f'Дорогая ({parse_price(graphic_card_g_link[2],"30 000")} - {parse_price(graphic_card_g_link[0],"47 000")})')
 
     markup.row(good)
     markup.add(bad, medium)
@@ -375,8 +369,8 @@ def start_5(message):
     
     if message.text == "HDD":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        medium = types.InlineKeyboardButton('2 тб (1 149 - 1 799)')
-        good = types.InlineKeyboardButton('1 тб (1 149 - 1 799)')
+        medium = types.InlineKeyboardButton(f'2 тб ({parse_price(hdd_2tb_link[1],"1 500")} - {parse_price(hdd_2tb_link[0],"2 000")})')
+        good = types.InlineKeyboardButton(f'1 тб ({parse_price(hdd_1tb_link[1],"1 000")} - {parse_price(hdd_1tb_link[0],"1 400")})')
 
         markup.add(good, medium)
         hdd_img = Image.open(r'D:\projects\Diplom\images\hdd.jpg') 
@@ -386,9 +380,9 @@ def start_5(message):
    
     elif message.text == "SSD":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        bad = types.InlineKeyboardButton('216 гб (819 - 929)')
-        medium = types.InlineKeyboardButton('512 гб (1 584 - 3 879)')
-        good = types.InlineKeyboardButton('1 тб (3 199 - 8 199)')
+        bad = types.InlineKeyboardButton(f'216 гб ({parse_price(ssd_216_link[2],"2 000")} - {parse_price(ssd_216_link[0],"4 000")})')
+        medium = types.InlineKeyboardButton(f'512 гб ({parse_price(ssd_512_link[2],"3 000")} - {parse_price(ssd_512_link[0],"7 000")})')
+        good = types.InlineKeyboardButton(f'1 тб ({parse_price(ssd_1_link[2],"8 000")} - {parse_price(ssd_1_link[0],"14 000")})')
 
         markup.row(good)
         markup.add(bad, medium)
@@ -460,9 +454,9 @@ def memory_model(message):
     block_img = Image.open(r'D:\projects\Diplom\images\block.jpg') 
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    bad = types.InlineKeyboardButton('Бюджетный (515 - 1 249)')
-    medium = types.InlineKeyboardButton('Что-то среднее (1 499 - 2 199)')
-    good = types.InlineKeyboardButton('Дорогой (2 639 - 5 549)')
+    bad = types.InlineKeyboardButton(f'Бюджетный ({parse_price(pc_power_b_link[2],"500")} - {parse_price(pc_power_b_link[0],"1 200")})')
+    medium = types.InlineKeyboardButton(f'Что-то среднее ({parse_price(pc_power_m_link[2],"1 500")} - {parse_price(pc_power_m_link[0],"2 200")})')
+    good = types.InlineKeyboardButton(f'Дорогой ({parse_price(pc_power_g_link[2],"2 500")} - {parse_price(pc_power_g_link[0],"4 200")})')
 
     markup.row(good)
     markup.add(bad, medium)
@@ -473,44 +467,58 @@ def memory_model(message):
     
 
 def pc_power(message):
-    insert_data(message.from_user.id, message.text, 'pc_power')
+    insert_data(message.from_user.id, message.text, 'pc_power_price')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     item = types.InlineKeyboardButton('1')
     item2 = types.InlineKeyboardButton('2')
     item3 = types.InlineKeyboardButton('3')
     markup.add(item, item2, item3)
  
-    if  'Дорогой' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[CHIEFTEC Polaris 1050W](https://telemart.ua/products/chieftec-polaris-1050w-pps-1050fc/)\n 2.[Corsair RM750x 750W](https://telemart.ua/products/corsair-rm750x-750w-cp-9020179-eu/)\n 3.[Seasonic CORE GC 650W Gold](https://telemart.ua/products/seasonic-core-gc-650w-gold-ssr-650lc/)', reply_markup=markup, parse_mode='Markdown')
+    if 'Дорогой' in message.text:
+        msg = bot.send_message(message.chat.id, f'1.[CHIEFTEC Polaris 1050W]({pc_power_g_link[0]})\n 2.[Corsair RM750x 750W]({pc_power_g_link[1]})\n 3.[Seasonic CORE GC 650W Gold]({pc_power_g_link[2]})', reply_markup=markup, parse_mode='Markdown')
     elif 'Что-то среднее' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[Be Quiet! System Power 9 700W](https://telemart.ua/products/be-quiet-system-power-9-700w-bn248/)\n 2.[Gigabyte P750GM 750W](https://telemart.ua/products/gigabyte-p750gm-750w-gp-p750gm/)\n 3.[GAMEMAX RGB-550 550W](https://telemart.ua/products/gamemax-rgb-550-550w-rgb-550/)', reply_markup=markup, parse_mode='Markdown')
+        msg = bot.send_message(message.chat.id, f'1.[Be Quiet! System Power 9 700W]({pc_power_m_link[0]})\n 2.[Gigabyte P750GM 750W]({pc_power_m_link[1]})\n 3.[GAMEMAX RGB-550 550W]({pc_power_m_link[2]})', reply_markup=markup, parse_mode='Markdown')
     elif 'Бюджетный' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[CHIEFTEC Force 500W](https://telemart.ua/products/chieftec-force-500w-cps-500s/)\n 2.[CHIEFTEC VALUE SERIES 400W OEM](https://telemart.ua/products/chieftec-value-series-400w-apb-400b8/)\n 3.[GAMEMAX 400W 120mm FAN](https://telemart.ua/products/gamemax-400w-120mm-fan-gm-400w-pfc/)', reply_markup=markup, parse_mode='Markdown')
+        msg = bot.send_message(message.chat.id, f'1.[CHIEFTEC Force 500W]({pc_power_b_link[0]})\n 2.[CHIEFTEC VALUE SERIES 400W OEM]({pc_power_b_link[1]})\n 3.[GAMEMAX 400W 120mm FAN]({pc_power_b_link[2]})', reply_markup=markup, parse_mode='Markdown')
     
     bot.register_next_step_handler(msg, pc_power_model)
 
     
 def pc_power_model(message):
-    insert_data(message.from_user.id, message.text, 'pc_power_model')
+
+    pc_price = state_check(message.from_user.id, 'pc_power_price')
+
+    if 'Бюджетный' in pc_price:
+        res = pc_power_b[(int(message.text) - 1)]
+        res_link = pc_power_b_link[(int(message.text) - 1)]
+    elif 'Что-то среднее' in pc_price:
+        res = pc_power_m[(int(message.text) - 1)]
+        res_link = pc_power_m_link[(int(message.text) - 1)]
+    elif 'Дорогой' in pc_price:
+        res = pc_power_g[(int(message.text) - 1)]
+        res_link = pc_power_g_link[(int(message.text) - 1)]
+
+    insert_data(message.from_user.id, res, 'pc_power_model')
+    insert_data(message.from_user.id, res_link, 'pc_power_link')
 
     pc_img = Image.open(r'D:\projects\Diplom\images\pc.jpg') 
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    bad = types.InlineKeyboardButton('Бюджетный (861 - 1 219)')
-    medium = types.InlineKeyboardButton('Что-то среднее (1 356 - 2 537)')
-    good = types.InlineKeyboardButton('Дорогой (3 076 - 5 606)')
+    bad = types.InlineKeyboardButton(f'Бюджетный  ({parse_price(pc_case_b_link[2],"800")} - {parse_price(pc_case_b_link[0],"1 200")})')
+    medium = types.InlineKeyboardButton(f'Что-то среднее ({parse_price(pc_case_m_link[2],"1 300")} - {parse_price(pc_case_m_link[0],"2 500")})')
+    good = types.InlineKeyboardButton(f'Дорогой ({parse_price(pc_case_m_link[2],"3 000")} - {parse_price(pc_case_m_link[0],"5 500")})')
 
     markup.row(good)
     markup.add(bad, medium)
     
-    msg = bot.send_photo(message.from_user.id, pc_img, 'Что насчет корпуса ?'  , reply_markup = markup)
+    msg = bot.send_photo(message.from_user.id, pc_img, 'Что насчет корпуса ?', reply_markup = markup)
 
     bot.register_next_step_handler(msg, pc_case)    
 
 
 
 def pc_case(message):
-    insert_data(message.from_user.id, message.text, 'pc_case')
+    insert_data(message.from_user.id, message.text, 'pc_case_price')
     
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     item = types.InlineKeyboardButton('1')
@@ -518,41 +526,70 @@ def pc_case(message):
     item3 = types.InlineKeyboardButton('3')
     markup.add(item, item2, item3)
  
-    if  'Дорогой' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[Asus TUF Gaming GT501 ](https://telemart.ua/products/asus-tuf-gaming-gt501-rgb-bez-bp-90dc0012-b49000-black/)\n 2.[Fractal Design Define 7](https://telemart.ua/products/fractal-design-define-7-compact-light-tempered-glass-bez-bp-fd-c-def7c-04-white/)\n 3.[Thermaltake V250](https://telemart.ua/products/thermaltake-v250-argb-tempered-glass-bez-bp-ca-1q5-00m1wn-00-black/)', reply_markup=markup, parse_mode='Markdown')
+    if 'Дорогой' in message.text:
+        msg = bot.send_message(message.chat.id, f'1.[Asus TUF Gaming GT501]({pc_case_g_link[0]})\n 2.[Fractal Design Define 7]({pc_case_g_link[1]})\n 3.[Thermaltake V250]({pc_case_g_link[2]})', reply_markup=markup, parse_mode='Markdown')
     elif 'Что-то среднее' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[Thermaltake V200](https://telemart.ua/products/thermaltake-v200-rgb-tempered-glass-bez-bp-ca-1k8-00m1wn-01-black/)\n 2.[2E Gaming Hexagon](https://telemart.ua/products/2e-gaming-hexagon-2e-g338-black/)\n 3.[GAMEMAX Diamond ARGB](https://telemart.ua/products/gamemax-diamond-argb-tempered-glass-bez-bp-white/)', reply_markup=markup, parse_mode='Markdown')
+        msg = bot.send_message(message.chat.id, f'1.[Thermaltake V200]({pc_case_m_link[0]})\n 2.[2E Gaming Hexagon]({pc_case_m_link[1]})\n 3.[GAMEMAX Diamond ARGB]({pc_case_m_link[2]})', reply_markup=markup, parse_mode='Markdown')
     elif 'Бюджетный' in message.text:
-        msg = bot.send_message(message.chat.id, '1.[1stPlayer V3-A-4G6](https://telemart.ua/products/1stplayer-v3-a-4g6-bez-bp-black/)\n 2.[1stPlayer F4-3R1](https://telemart.ua/products/1stplayer-f4-3r1-color-led-bez-bp-black/)\n 3.[GAMEMAX MT520-NP](https://telemart.ua/products/gamemax-mt520-np-bez-bp-gmmc683667-black/)', reply_markup=markup, parse_mode='Markdown')
+        msg = bot.send_message(message.chat.id, f'1.[1stPlayer V3-A-4G6]({pc_case_b_link[0]})\n 2.[1stPlayer F4-3R1]({pc_case_b_link[1]})\n 3.[GAMEMAX MT520-NP]({pc_case_b_link[2]})', reply_markup=markup, parse_mode='Markdown')
 
     bot.register_next_step_handler(msg, pc_case_model)
         
         
 
 def pc_case_model(message):
-    insert_data(message.from_user.id, message.text, 'pc_case_model')
+
+    pc_price = state_check(message.from_user.id, 'pc_case_price')
+
+    if 'Бюджетный' in pc_price:
+        res = pc_case_b[(int(message.text) - 1)]
+        res_link = pc_case_b_link[(int(message.text) - 1)]
+    elif 'Что-то среднее' in pc_price:
+        res = pc_case_m[(int(message.text) - 1)]
+        res_link = pc_case_m_link[(int(message.text) - 1)]
+    elif 'Дорогой' in pc_price:
+        res = pc_case_g[(int(message.text) - 1)]
+        res_link = pc_case_g_link[(int(message.text) - 1)]
+
+
+    insert_data(message.from_user.id, res, 'pc_case_model')
+    insert_data(message.from_user.id, res_link, 'pc_case_link')
+
     
     processor_model = state_check(message.from_user.id, 'processor_model')
     processor_link = state_check(message.from_user.id, 'processor_link')
     motherboard_model = state_check(message.from_user.id, 'motherboard_model')
-    motherboard_model_link = state_check(message.from_user.id, 'motherboard_link')
+    motherboard_link = state_check(message.from_user.id, 'motherboard_link')
     graphic_card_model = state_check(message.from_user.id, 'graphic_card_model')
-    graphic_card_model_link = state_check(message.from_user.id, 'graphic_card_link')
+    graphic_card_link = state_check(message.from_user.id, 'graphic_card_link')
     ram_model = state_check(message.from_user.id, 'ram_model')
     ram_link = state_check(message.from_user.id, 'ram_link')
     memory_model = state_check(message.from_user.id, 'memory_model')
     memory_link = state_check(message.from_user.id, 'memory_link')
+    pc_power_model = state_check(message.from_user.id, 'pc_power_model')
+    pc_power_link = state_check(message.from_user.id, 'pc_power_link')
 
-    # pc_power_model = state_check(message.from_user.id, 'pc_power_model')
-    # pc_case_model = state_check(message.from_user.id, 'pc_case_model')
+    pc_case_model = state_check(message.from_user.id, 'pc_case_model')
+    pc_case_link = state_check(message.from_user.id, 'pc_case_link')
 
-    
+    def result_sum(*links):
+        res = 0
+        for el in links:
+          res += int((parse_price(el)).replace(' ', ''))
+        print(type(res))
+        print(res)
+        return res
+
     results = f'''Ваша сборка :
 Процессор: [{processor_model}]({processor_link})
-Материнская плата: [{motherboard_model}]({motherboard_model_link})
-Видеокарта: [{graphic_card_model}]({graphic_card_model_link})
+Материнская плата: [{motherboard_model}]({motherboard_link})
+Видеокарта: [{graphic_card_model}]({graphic_card_link})
 ОЗУ: [{ram_model}]({ram_link})
 Память: [{memory_model}]({memory_link})
+Блок питания: [{pc_power_model}]({pc_power_link})
+Корпус: [{pc_case_model}]({pc_case_link})
+
+Сумма: {result_sum(processor_link, motherboard_link, graphic_card_link, ram_link, memory_link, pc_power_link, pc_case_link)}
 
 
 

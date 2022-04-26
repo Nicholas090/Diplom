@@ -36,7 +36,7 @@ graphic_card_b_link = ['https://telemart.ua/products/gigabyte-geforce-gtx-1660-o
 
 ram8 = ['Kingston DDR4 8G', 'GoodRAM DDR4 8GB', 'Team DDR4 8GB']
 ram16 = ['Patriot DDR4 16GB', 'G.Skill DDR4 16GB', 'G.Skill DDR4 16GB']
-ram32 = ['Kingston DDR5 32GB', 'G.Skill DDR4 32GB', '[Patriot DDR4 32GB']
+ram32 = ['Kingston DDR5 32GB', 'G.Skill DDR4 32GB', 'Patriot DDR4 32GB']
 
 ram8_link = ['https://telemart.ua/products/kingston-ddr4-8gb-3200mhz-fury-beast-black-kf432c16bb8/', 'https://telemart.ua/products/goodram-ddr4-8gb-2400mhz-gr2400d464l17s8g/', 'https://telemart.ua/products/team-ddr4-8gb-2400mhz-elite-ted48g2400c1601/']
 ram16_link = ['https://telemart.ua/products/patriot-ddr4-16gb-2x8gb-4400mhz-viper-4-blackout-pvb416g440c8k/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8-3200mhz-ripjaws-v-black-f4-3200c15d-16gvk/', 'https://telemart.ua/products/gskill-ddr4-16gb-2x8gb-3200mhz-aegis-f4-3200c16d-16gis/']
@@ -57,15 +57,23 @@ ssd_216_link = ['https://telemart.ua/products/gigabyte-256gb-25-gp-gstfs31256gtn
 ssd_512_link = ['https://telemart.ua/products/kingston-fury-renegade-3d-nand-tlc-500gb-m2-2280-pci-e-nvme-x4-sfyrs500g/', 'https://telemart.ua/products/samsung-870-evo-v-nand-mlc-500gb-25-mz-77e500bw/', 'https://telemart.ua/products/patriot-p300-512gb-m2-2280-pci-e-nvme-x4-p300p512gm28/']
 ssd_1_link = ['https://telemart.ua/products/samsung-970-pro-v-nand-mlc-1tb-m2-2280-pci-e-mz-v7p1t0bw/', 'https://telemart.ua/products/corsair-force-series-mp600-gen4-3d-nand-tlc-1gb-m2-2280-pci-e-nvme-x4-cssd-f1000gbmp600/', 'https://telemart.ua/products/intel-660p-3d-qlc-1tb-m2-2280-pci-e-nvme-x4-ssdpeknw010t8x1/']
 
-pc_power_g = []
-pc_power_m = []
-pc_power_b = []
+pc_power_g = ['CHIEFTEC Polaris 1050W', 'Corsair RM750x 750W', 'Seasonic CORE GC 650W Gold']
+pc_power_m = ['Be Quiet! System Power 9 700W', 'Gigabyte P750GM 750W', 'GAMEMAX RGB-550 550W']
+pc_power_b = ['CHIEFTEC Force 500W', 'CHIEFTEC VALUE SERIES 400W OEM', 'GAMEMAX 400W 120mm FAN']
 
 
 pc_power_g_link = ['https://telemart.ua/products/chieftec-polaris-1050w-pps-1050fc/', 'https://telemart.ua/products/corsair-rm750x-750w-cp-9020179-eu/', 'https://telemart.ua/products/seasonic-core-gc-650w-gold-ssr-650lc/']
 pc_power_m_link = ['https://telemart.ua/products/be-quiet-system-power-9-700w-bn248/', 'https://telemart.ua/products/gigabyte-p750gm-750w-gp-p750gm/', 'https://telemart.ua/products/gamemax-rgb-550-550w-rgb-550/']
 pc_power_b_link = ['https://telemart.ua/products/chieftec-force-500w-cps-500s/', 'https://telemart.ua/products/chieftec-value-series-400w-apb-400b8/', 'https://telemart.ua/products/gamemax-400w-120mm-fan-gm-400w-pfc/']
 
+pc_case_g = ['Asus TUF Gaming GT501', 'Fractal Design Define 7', 'Thermaltake V250']
+pc_case_m = ['Thermaltake V200', '2E Gaming Hexagon', 'GAMEMAX Diamond ARGB']
+pc_case_b = ['1stPlayer V3-A-4G6', '1stPlayer F4-3R1', 'GAMEMAX MT520-NP']
+
+
 pc_case_g_link = ['https://telemart.ua/products/asus-tuf-gaming-gt501-rgb-bez-bp-90dc0012-b49000-black/', 'https://telemart.ua/products/fractal-design-define-7-compact-light-tempered-glass-bez-bp-fd-c-def7c-04-white/', 'https://telemart.ua/products/thermaltake-v250-argb-tempered-glass-bez-bp-ca-1q5-00m1wn-00-black/']
 pc_case_m_link = ['https://telemart.ua/products/thermaltake-v200-rgb-tempered-glass-bez-bp-ca-1k8-00m1wn-01-black/', 'https://telemart.ua/products/2e-gaming-hexagon-2e-g338-black/', 'https://telemart.ua/products/gamemax-diamond-argb-tempered-glass-bez-bp-white/']
 pc_case_b_link = ['https://telemart.ua/products/1stplayer-v3-a-4g6-bez-bp-black/', 'https://telemart.ua/products/1stplayer-f4-3r1-color-led-bez-bp-black/', 'https://telemart.ua/products/gamemax-mt520-np-bez-bp-gmmc683667-black/']
+
+
+
